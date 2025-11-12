@@ -107,6 +107,10 @@ function Support(props) {
                   alt={support.title}
                   width={support.style.iconWidth}
                   height={support.style.iconHeight}
+                  style={{
+                    filter:
+                      "invert(27%) sepia(80%) saturate(4000%) hue-rotate(350deg) brightness(95%) contrast(100%)",
+                  }}
                 />
                 <Typography
                   fontWeight={700}

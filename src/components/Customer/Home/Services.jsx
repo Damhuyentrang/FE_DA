@@ -69,7 +69,7 @@ function Services(props) {
               sx={{
                 p: 4,
                 height: "100%",
-                bgcolor: "#f0f2f5", // nền đậm hơn trắng một chút
+                bgcolor: "#f0f2f5",
                 borderRadius: 2,
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 ":hover": {
@@ -85,6 +85,10 @@ function Services(props) {
                   alt={service.title}
                   width={40}
                   height={40}
+                  style={{
+                    filter:
+                      "invert(27%) sepia(80%) saturate(4000%) hue-rotate(350deg) brightness(95%) contrast(100%)",
+                  }}
                 />
                 <Typography
                   fontWeight={700}
