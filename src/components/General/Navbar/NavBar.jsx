@@ -12,6 +12,7 @@ import {
   SvgIcon,
   Toolbar,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { usePopover } from "../../../hooks/use-popover";
@@ -22,23 +23,9 @@ import { useAuth } from "../../../auth/AuthProvider";
 
 const TOP_NAV_HEIGHT = 64;
 
-const CustomButton = styled(Button)`
-  padding: 10px 18px !important;
-  color: #0b5394;
-  border-radius: none;
-  font-weight: bold;
-  font-size: 14px;
-  box-shadow: none;
-
-  &:hover {
-    background: linear-gradient(45deg, #4dc9e6 30%, #0974f1 90%);
-    color: white;
-    outline: none;
-  }
-`;
 const Wrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  backgroundColor: "white",
+  backgroundColor: theme.palette.white.main,
   display: "flex",
   position: "sticky",
   top: 0,
@@ -54,19 +41,40 @@ const StyledLogo = styled(CardMedia)(({ theme }) => ({
   backgroundSize: "contain",
   height: theme.spacing(8),
   marginRight: "10px",
+  cursor: "pointer",
 }));
 
 const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
   color: theme.palette.template.main,
   padding: "12px 20px !important",
-  borderRadius: "none",
+  borderRadius: 0,
   fontWeight: "bold",
   fontSize: "18px",
+  transition: "all 0.2s ease",
+  "&:hover": {
+    color: theme.palette.primary.main,
+    backgroundColor: "rgba(11, 83, 148, 0.08)", // hover nền nhẹ, tinh tế
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)", // shadow mảnh
+  },
 }));
 
-function NavBar(props) {
-  const { onDrawerClick } = props;
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+const CustomButton = styled(Button)(({ theme }) => ({
+  padding: "10px 18px !important",
+  borderRadius: 0,
+  fontWeight: "bold",
+  fontSize: "14px",
+  boxShadow: "none",
+  color: theme.palette.white.main,
+  "&:hover": {
+    background: "linear-gradient(45deg, #4dc9e6 30%, #0974f1 90%)", // giữ màu cũ
+    color: theme.palette.white.main,
+    boxShadow: "0 4px 12px rgba(0,0,0,0.15)", // hover nổi nhẹ
+  },
+}));
+
+function NavBar({ onDrawerClick }) {
+  const theme = useTheme();
+  const lgUp = useMediaQuery(theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
   const { token, setFullName, fullName, setRole, setNurseType } = useAuth();
   const navigate = useNavigate();
@@ -82,117 +90,86 @@ function NavBar(props) {
     };
     handleGetFullName();
   }, [setFullName, setRole, setNurseType]);
-  //const accountPopover = usePopover(); // Sử dụng usePopover để lấy ra giá trị của popover.
+
+  const menuItems = [
+    { label: "Trang chủ", path: "/" },
+    { label: "Giới thiệu", path: "/introduce" },
+    { label: "Quy trình", path: "/process" },
+    { label: "Thắc mắc", path: "/question" },
+    { label: "Liên hệ", path: "/support" },
+  ];
+
   return (
     <Wrapper>
       <Stack
-        className="header-main"
         direction={"row"}
         alignItems={"center"}
         justifyContent={"center"}
         spacing={2}
-        style={{
-          width: "100%",
-          minHeight: TOP_NAV_HEIGHT, // Đặt chiều cao tối thiểu cho phần header
-        }}
+        sx={{ width: "100%", minHeight: TOP_NAV_HEIGHT }}
       >
         {!lgUp && (
-          <>
-            <Stack
-              direction={"row"}
-              sx={{
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-                paddingX: 2,
-                paddingY: 1.5,
-              }}
-            >
-              <StyledLogo
-                onClick={() => navigate("/")}
-                style={{ cursor: "pointer" }}
-                image="https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762684631/images_vvrjpb.jpg"
-              />
-              <IconButton onClick={() => onDrawerClick(true)}>
-                <SvgIcon fontSize="medium">
-                  <MenuIcon />
-                </SvgIcon>
-              </IconButton>
-            </Stack>
-          </>
+          <Stack
+            direction={"row"}
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+            px={2}
+            py={1.5}
+          >
+            <StyledLogo
+              onClick={() => navigate("/")}
+              image="https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762684631/images_vvrjpb.jpg"
+            />
+            <IconButton onClick={() => onDrawerClick(true)}>
+              <SvgIcon fontSize="medium">
+                <MenuIcon />
+              </SvgIcon>
+            </IconButton>
+          </Stack>
         )}
 
         {lgUp && (
           <Stack
-            className="header-for-web"
             direction={"row"}
             spacing={2}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            sx={{
-              paddingX: 5,
-              paddingY: 1.5,
-              maxWidth: "1240px",
-              width: "100%",
-            }}
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ px: 5, py: 1.5, maxWidth: "1240px", width: "100%" }}
           >
             <StyledLogo
               onClick={() => navigate("/")}
-              style={{ cursor: "pointer" }}
               image="https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762684631/images_vvrjpb.jpg"
             />
 
-            <Toolbar
-              component={Stack}
-              direction={"row"}
-              sx={{
-                backgroundColor: "white",
-                height: "40px",
-              }}
-            >
-              <CustomMenuItem onClick={() => navigate("/")}>
-                Trang chủ
-              </CustomMenuItem>
-              <CustomMenuItem onClick={() => navigate("introduce")}>
-                Giới thiệu
-              </CustomMenuItem>
-             <CustomMenuItem onClick={() => navigate("process")}>
-  Quy trình
-</CustomMenuItem>
-
-              <CustomMenuItem onClick={() => navigate("question")}>
-                Thắc mắc</CustomMenuItem>
-              <CustomMenuItem onClick={() => navigate("support")}>
-                Liên hệ
-              </CustomMenuItem>
+            <Toolbar component={Stack} direction={"row"} sx={{ height: 40 }}>
+              {menuItems.map((item, index) => (
+                <CustomMenuItem key={index} onClick={() => navigate(item.path)}>
+                  {item.label}
+                </CustomMenuItem>
+              ))}
             </Toolbar>
+
             <Box>
               {!token || !fullName ? (
-                <Button
-                  id="btn-account"
+                <CustomButton
                   variant="contained"
+                  onClick={() => navigate("/auth/login")}
                   sx={{
-                    padding: "10px 18px !important",
                     background:
                       "linear-gradient(45deg, #4dc9e6 30%, #0974f1 90%)",
-                    color: "white",
-                    borderRadius: "none",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                    boxShadow: "none",
                   }}
-                  onClick={() => navigate("/auth/login")}
                 >
-                  <LoginIcon sx={{ marginRight: "5px" }} />
+                  <LoginIcon sx={{ mr: 0.5 }} />
                   Đăng nhập
-                </Button>
+                </CustomButton>
               ) : (
                 <CustomButton
                   variant="outlined"
                   onClick={accountPopover.handleOpen}
                   ref={accountPopover.anchorRef}
                 >
-                  <PersonIcon sx={{ marginRight: "5px" }} />
+                  <PersonIcon sx={{ mr: 0.5 }} />
                   {fullName}
                 </CustomButton>
               )}
