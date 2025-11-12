@@ -1,255 +1,150 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import { Box, Typography, Grid, useTheme } from "@mui/material";
 
-function IntroducePage(props) {
+function IntroducePage() {
+  const theme = useTheme();
+
+  const services = [
+    {
+      title: "Trước mổ",
+      description:
+        "Khám và tư vấn phẫu thuật miễn phí. Các xét nghiệm mổ cận và xét nghiệm Covid miễn phí!",
+    },
+    {
+      title: "Sau mổ",
+      description:
+        "Sẽ được phát miễn phí thuốc sau mổ: kính bảo vệ, ăn trưa, và nằm viện miễn phí trong ngày.",
+    },
+    {
+      title: "Hỗ trợ 1 năm",
+      description: "Được PGS - TS Cung Hồng Sơn khám miễn phí 1 năm sau mổ.",
+    },
+    {
+      title: "Bảo hành trọn đời",
+      description:
+        "Bệnh Viện Mắt Hồng Sơn là địa chỉ duy nhất: bảo hành miễn phí trọn đời, tái cận sẽ được mổ miễn phí nếu còn chiều dầy nền giác mạc trên 310 micromet.",
+    },
+  ];
+
   return (
     <Box>
+      {/* Hero / Banner */}
       <Box
         sx={{
-          "@media (min-width:992px)": {
-            ".d-lg-block": {
-              display: "block !important",
-            },
-          },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage:
+            "url(https://res.cloudinary.com/dsmvlvfy5/image/upload/v1703400921/blur-04.4f6865d2_tvrj9b.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: { xs: 200, md: 300 },
+          color: "#fff",
+          textAlign: "center",
+          py: { xs: 6, md: 12 },
         }}
       >
-        <Box
+        <Typography
+          variant="h2"
           sx={{
-            display: "flex",
-            backgroundImage:
-              "url(https://res.cloudinary.com/dsmvlvfy5/image/upload/v1703400921/blur-04.4f6865d2_tvrj9b.jpg)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPositionX: "50% !important",
-            backgroundPositionY: "center !important",
-            backgroundAttachment: "fixed",
-            height: "unset",
-            alignItems: "center",
-            paddingTop: "60px !important",
-            paddingBottom: "80px !important",
+            fontWeight: 700,
+            fontSize: { xs: "2rem", md: "3rem" },
+            textShadow: "2px 2px 8px rgba(0,0,0,0.5)",
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              padding: "15px auto",
-            }}
-          >
-            <div className="col">
-              <Typography
-                variant="h1"
-                className="text-center"
-                sx={{
-                  textAlign: "center",
-                  zIndex: 2,
-                  color: "#fff",
-                  fontSize: "2.6rem",
-                  fontWeight: 550,
-                }}
-              >
-                ABOUT US
-              </Typography>
-            </div>
-          </div>
-        </Box>
+          ABOUT US
+        </Typography>
       </Box>
+
+      {/* Main content */}
       <Box
         sx={{
-          position: "relative",
-          backgroundColor: "#fff",
-          margin: "-50px auto 120px",
-          borderRadius: "5px",
-          minHeight: "300px",
-          maxWidth: "1140px",
-          border: "1px solid #ebebeb",
-          padding: "30px",
+          maxWidth: 1140,
+          mx: "auto",
+          mt: -6,
+          mb: 12,
+          p: { xs: 2, md: 4 },
+          borderRadius: 2,
+          bgcolor: "#fff",
+          boxShadow: "0px 4px 20px rgba(0,0,0,0.05)",
         }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            paddingX: "15px",
-            marginX: "auto",
-          }}
+        {/* Introduction */}
+        <Typography
+          variant="h3"
+          sx={{ fontWeight: 600, mb: 3, textAlign: "center" }}
         >
+          Giới thiệu Bệnh Viện Mắt Hồng Sơn
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{ mb: 2, lineHeight: 1.8, textAlign: "justify" }}
+        >
+          Chúng tôi tự hào là nơi thực hiện hơn{" "}
           <Box
-            sx={{
-              marginBottom: "15px",
-            }}
+            component="span"
+            sx={{ fontWeight: 700, color: theme.palette.primary.main }}
           >
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: "1rem",
-                marginBottom: "1rem",
-                fontWeight: 400,
-                lineHeight: 1.5,
-                textAlign: "justify",
-              }}
-            >
-              Welcome to{" "}
-              <span
-                style={{
-                  fontWeight: 500,
-                }}
-              >
-                HONG SON EYE HOSPITAL
-              </span>
-              , MỔ CẬN LOẠN THỊ, ĐỤC THỦY TINH THỂ, BỆNH VÕNG MẠC... VỚI PHẪU THUẬT VIÊN SỐ 1 VIỆT NAM, GIÁ VÀ KẾT QUẢ TỐT NHẤT! 
-              TẠI BỆNH VIỆN THƯƠNG HIỆU UY TÍN HÀNG ĐẦU CHÂU Á!
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: "1rem",
-                marginBottom: "1rem",
-                fontWeight: 400,
-                lineHeight: 1.5,
-                textAlign: "justify",
-              }}
-            >
-             Giao Sư Danh Dự Đại Học Quốc Tế Hoa Kỳ - Phó Giáo Sư - Tiến Sĩ - Thạc Sĩ Nhãn Khoa Vương Quốc Anh - Bác Sĩ Cao Cấp - Thầy thuốc Ưu Tú: CUNG HỒNG SƠN là phẫu thuật viên mổ tại Bệnh Viện Mắt Hồng Sơn, là bác sĩ duy nhất ở Việt Nam có thể phẫu thuật tốt cả bán phần trước và bán phần sau nhãn cầu. Với hơn 130.000 ca phẫu thuật cận thị thành công, 130.000 ca phẫu thuật đục thuỷ tinh thể, 25.000 ca về dịch kính võng mạc và hàng nghìn ca về Glocom, thẩm mỹ và các phẫu thuật khác. Hiện tại bác sĩ Cung Hồng Sơn là bác sĩ có số
-              lượng ca mổ cận thị nhiều nhất Việt Nam.
-            </Typography>
-            <br />
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: "1rem",
-                marginBottom: "1rem",
-                fontWeight: 400,
-                lineHeight: 1.5,
-                textAlign: "justify",
-              }}
-            >
-              Với cam kết đem lại KẾT QUẢ TỐT NHẤT và GIÁ TỐT NHẤT trên toàn quốc, để bạn tự tin tạm biệt gọng kính và tận
-               hưởng cuộc sống không phụ thuộc vào đôi mắt thuỷ tinh.
-            </Typography>
-            <ul
-              style={{
-                listStyle: "disc",
-                paddingLeft: "30px",
-                marginBottom: "1rem",
-              }}
-            >
-              <li>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontSize: "1rem",
-                    marginBottom: "8px",
-                    fontWeight: 400,
-                    lineHeight: 1.5,
-                    textAlign: "justify",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>
-                   Trước mổ:
-                  </span>{" "}
-                  Khám và tư vấn phẫu thuật miễn phí: Các xét nghiệm mổ cận và xét nghiệm Covid miễn phí!
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontSize: "1rem",
-                    marginBottom: "8px",
-                    fontWeight: 400,
-                    lineHeight: 1.5,
-                    textAlign: "justify",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>
-                    Sau mổ:
-                  </span>{" "}
-                   Sẽ được phát miễn phí thuốc sau mổ: kính bảo vệ, ăn trưa, và nằm viện miễn phí trong ngày.
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontSize: "1rem",
-                    marginBottom: "8px",
-                    fontWeight: 400,
-                    lineHeight: 1.5,
-                    textAlign: "justify",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>
-                    Được PGS - TS CUNG HỒNG SƠN:
-                  </span>{" "}
-                  sẽ khám miễn phí 1 năm sau mổ
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontSize: "1rem",
-                    marginBottom: "8px",
-                    fontWeight: 400,
-                    lineHeight: 1.5,
-                    textAlign: "justify",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>
-                     Bệnh Viện Mắt Hồng Sơn là địa chỉ DUY NHẤT:
-                  </span>{" "}
-                 Bảo Hành Miễn Phí TRỌN ĐỜI , tái cận sẽ được mổ miễn phí nếu còn chiều dầy nền giác mạc trên 310 micromet.
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    fontSize: "1rem",
-                    marginBottom: "8px",
-                    fontWeight: 400,
-                    lineHeight: 1.5,
-                    textAlign: "justify",
-                  }}
-                >
-                  <span style={{ fontWeight: 500 }}>
-                    Bệnh Viện Mắt Hồng Sơn còn là 
-                  </span>{" "}
-                địa chỉ uy tín đặc biệt với các PHẪU THUẬT CHUYÊN SÂU được hỗ trợ bảo hiểm y tế như:
-- Mổ ĐỤC THUỶ TINH THỂ theo phương pháp Phaco : các loại thuỷ tinh thể nhân tạo thế hệ mới: đơn tiêu, đa tiêu 2D không có các vòng tròn gây chói loá, đa tiêu cự 3D ... Sử dụng các máy hiện đại nhất: IOL Master 700. OCT - võng mạc Angiography, Máy Phaco lạnh đầu típ 2,2 mm...
-- Mổ ĐỤC THUỶ TINH THỂ bằng LASER (FEMTO CATARACT). Ưu điểm: 1. Không dùng dao. 2. Điểu chỉnh loạn thị. 3. Rạch giác mạc, xé bao và chia nhỏ thuỷ tinh thể bằng Laser. 4. An toàn, chính xác và kết quả tốt hơn
-- Phẫu thuật BÁN PHẦN SAU: Bong võng mạc. Bệnh lý võng mạc đái tháo đường. Cắt dịch kính. Màng xơ trước võng mạc. Lỗ hoàng điểm... với hệ thống máy hiện đại như: Camera nội nhãn, Laser nội nhãn, OCT-Angiography... - Phẫu thuật GLOCOM: Cắt bè. Đặt Valve tiền phòng...
-- Phẫu thuật thẩm mỹ mắt và vùng mặt: với máy đốt siêu cao tần...
-                </Typography>
-              </li>
-            </ul>
-
-            <br />
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: "1rem",
-                marginBottom: "1rem",
-                fontWeight: 400,
-                lineHeight: 1.5,
-                textAlign: "justify",
-              }}
-            >
-             
-            </Typography>
-            <br />
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: "1rem",
-                marginBottom: "1rem",
-                fontWeight: 400,
-                lineHeight: 1.5,
-                textAlign: "justify",
-              }}
-            >
-             
-            </Typography>
+            130.000 ca mổ cận thị thành công
           </Box>
+          , cùng hàng nghìn ca về đục thủy tinh thể, dịch kính võng mạc, glocom
+          và các phẫu thuật thẩm mỹ mắt khác.
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{ mb: 2, lineHeight: 1.8, textAlign: "justify" }}
+        >
+          Bác sĩ Cung Hồng Sơn – Giao sư danh dự, Phó Giáo sư, Tiến sĩ Nhãn
+          khoa, là phẫu thuật viên duy nhất tại Việt Nam có thể phẫu thuật thành
+          thạo cả bán phần trước và bán phần sau nhãn cầu.
+        </Typography>
+
+        {/* Services / Bullet points */}
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h4" sx={{ fontWeight: 600, mb: 3 }}>
+            Cam kết & Dịch vụ nổi bật
+          </Typography>
+          <Grid container spacing={3}>
+            {services.map((service, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <Box
+                  sx={{
+                    p: 3,
+                    borderRadius: 2,
+                    bgcolor: "#f0f2f5",
+                    height: "100%",
+                    transition: "all 0.3s ease",
+                    ":hover": {
+                      boxShadow: "0px 8px 20px rgba(0,0,0,0.1)",
+                      transform: "translateY(-4px)",
+                    },
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                    {service.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
+                    {service.description}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
+        {/* Additional description */}
+        <Box sx={{ mt: 6 }}>
+          <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
+            Với cam kết đem lại kết quả tốt nhất và giá tốt nhất trên toàn quốc,
+            bệnh nhân hoàn toàn yên tâm tạm biệt gọng kính và tận hưởng cuộc
+            sống không phụ thuộc vào đôi mắt thủy tinh.
+          </Typography>
+          <Typography variant="body1" sx={{ lineHeight: 1.8, mb: 2 }}>
+            Chúng tôi sử dụng các thiết bị hiện đại nhất: IOL Master 700, OCT -
+            Võng mạc Angiography, Máy Phaco lạnh đầu típ 2.2mm, Laser FEMTO
+            CATARACT, Camera nội nhãn, Laser nội nhãn, OCT-Angiography...
+          </Typography>
         </Box>
       </Box>
     </Box>
