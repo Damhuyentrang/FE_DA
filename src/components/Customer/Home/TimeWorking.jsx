@@ -1,154 +1,102 @@
-import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
+import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect } from "react";
 import CountUpAnimation from "./CountUpAnimation";
 import { getAllHomeStatistics } from "../../../services/common/StatisticsServices";
 
 function TimeWorking(props) {
-  const isLgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  const theme = useTheme();
+  const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
   const [statistics, setStatistics] = React.useState({});
 
   useEffect(() => {
     const getHomeStatistics = async () => {
       const response = await getAllHomeStatistics();
-      if(response.success) {
+      if (response.success) {
         setStatistics(response.data.data);
       }
     };
     getHomeStatistics();
   }, []);
-  
+
+  const statsData = [
+    { value: 10, label: "Năm kinh nghiệm" },
+    { value: statistics?.totalDoctors, label: "Bác sĩ chuyên môn" },
+    { value: statistics?.totalDepartments, label: "Chuyên khoa" },
+  ];
+
   return (
     <Box
       sx={{
-        py: isLgUp ? "120px" : "20px",
-        backgroundImage: `url("https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762689439/9831a80fb4086d563419_20221127170231563_kahgaz.jpg)`,
+        py: isLgUp ? 15 : 6,
+        position: "relative",
+        width: "100%",
+        backgroundImage:
+          'url("https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762689439/9831a80fb4086d563419_20221127170231563_kahgaz.jpg")',
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        position: "relative",
-        zIndex: "-1000",
-        width: "100%",
-        height: "100%",
-        "::after": {
+        "&::after": {
           content: "''",
           position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "#000",
-          opacity: 0.3,
+          inset: 0,
+          bgcolor: "rgba(0,0,0,0.3)",
+          zIndex: 0,
         },
       }}
     >
       <Grid
         container
-        justifyContent="space-around"
-        width="100%"
-        height={"20rem"}
+        spacing={4}
+        justifyContent="center"
         sx={{
-          paddingX: isLgUp ? "190px" : "15px",
+          position: "relative",
+          zIndex: 1,
+          px: isLgUp ? 20 : 2,
         }}
       >
-        <Grid
-          item
-          xs={12}
-          md={2.4}
-          display={"flex"}
-          flexDirection={"column"}
-          sx={{
-            height: {
-              xs: "30%",
-              md: "100%",
-            },
-            paddingX: "20px",
-            paddingY: "50px",
-            background: "rgba(255, 255, 255, 0.2)",
-            boxShadow: "0 0 50px rgba(153, 153, 153, 0.1)",
-            textAlign: "center",
-            justifyContent: "center",
-            zIndex: "100",
-          }}
-        >
-          <CountUpAnimation value={10} />
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#fff",
-              fontSize: "20px",
-              fontWeight: "400",
-              marginTop: isLgUp ? "20px" : "0px",
-            }}
+        {statsData.map((stat, index) => (
+          <Grid
+            key={index}
+            item
+            xs={12}
+            md={3}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
           >
-            Năm kinh nghiệm
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={2.4}
-          display={"flex"}
-          flexDirection={"column"}
-          sx={{
-            height: {
-              xs: "30%",
-              md: "100%",
-            },
-            paddingX: "20px",
-            paddingY: "50px",
-            background: "rgba(255, 255, 255, 0.2)",
-            boxShadow: "0 0 50px rgba(153, 153, 153, 0.1)",
-            textAlign: "center",
-            justifyContent: "center",
-            zIndex: "100",
-          }}
-        >
-          <CountUpAnimation value={statistics?.totalDoctors} />
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#fff",
-              fontSize: "20px",
-              fontWeight: "400",
-              marginTop: isLgUp ? "20px" : "0px",
-            }}
-          >
-            Bác sĩ chuyên môn
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={2.4}
-          display={"flex"}
-          flexDirection={"column"}
-          sx={{
-            height: {
-              xs: "30%",
-              md: "100%",
-            },
-            paddingX: "20px",
-            paddingY: "50px",
-            background: "rgba(255, 255, 255, 0.2)",
-            boxShadow: "0 0 50px rgba(153, 153, 153, 0.1)",
-            textAlign: "center",
-            justifyContent: "center",
-            zIndex: "100",
-          }}
-        >
-          <CountUpAnimation value={statistics?.totalDepartments} />
-          <Typography
-            variant="body1"
-            sx={{
-              color: "#fff",
-              fontSize: "20px",
-              fontWeight: "400",
-              marginTop: isLgUp ? "20px" : "0px",
-            }}
-          >
-            Chuyên khoa
-          </Typography>
-        </Grid>
+            <Box
+              sx={{
+                width: "100%",
+                py: 6,
+                px: 3,
+                textAlign: "center",
+                bgcolor: "rgba(255,255,255,0.2)",
+                borderRadius: 3,
+                boxShadow: "0 0 50px rgba(153,153,153,0.1)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                ":hover": {
+                  transform: "translateY(-8px)",
+                  boxShadow:
+                    "rgba(0,0,0,0.1) 0px 8px 20px, rgba(0,0,0,0.05) 0px 12px 40px",
+                },
+              }}
+            >
+              <CountUpAnimation value={stat.value} />
+              <Typography
+                variant="body1"
+                sx={{
+                  mt: 2,
+                  color: "#fff",
+                  fontSize: { xs: 18, md: 20 },
+                  fontWeight: 400,
+                }}
+              >
+                {stat.label}
+              </Typography>
+            </Box>
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
