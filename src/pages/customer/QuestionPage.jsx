@@ -1,27 +1,64 @@
 import React from "react";
-import faqs from '../../services/customer/faqs';
+import { Box, Typography, Stack, useTheme } from "@mui/material";
+import faqs from "../../services/customer/faqs";
 
-function SupportPage() {
+function QuestionPage() {
+  const theme = useTheme();
+
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold text-center mb-6 text-blue-600">
+    <Box sx={{ px: { xs: 2, md: 4 }, py: { xs: 6, md: 12 } }}>
+      {/* Tiêu đề */}
+      <Typography
+        variant="h3"
+        sx={{
+          textAlign: "center",
+          fontWeight: 700,
+          color: theme.palette.primary.main,
+          mb: 6,
+          fontSize: { xs: "1.8rem", md: "2.5rem" },
+        }}
+      >
         Câu hỏi thường gặp (FAQ)
-      </h1>
-      <div className="space-y-4">
-        {faqs.map((faq, index) => (
-          <div
-            key={index}
-            className="border rounded-xl shadow-sm p-4 hover:bg-gray-50 transition"
+      </Typography>
+
+      {/* Danh sách FAQ */}
+      <Stack spacing={4} maxWidth={900} mx="auto">
+        {faqs.map((faq, idx) => (
+          <Box
+            key={idx}
+            sx={{
+              p: { xs: 3, md: 4 },
+              borderRadius: 3,
+              bgcolor: "#f8fafd",
+              boxShadow: "0px 4px 12px rgba(0,0,0,0.05)",
+              transition: "transform 0.3s, box-shadow 0.3s",
+              "&:hover": {
+                transform: "translateY(-2px)",
+                boxShadow: "0px 8px 20px rgba(0,0,0,0.12)",
+              },
+            }}
           >
-            <h2 className="font-semibold text-lg text-gray-800">
-              {faq.question}
-            </h2>
-            <p className="text-gray-600 mt-2">{faq.answer}</p>
-          </div>
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 600,
+                color: theme.palette.primary.main,
+                mb: 1,
+              }}
+            >
+              {`Câu ${idx + 1}: ${faq.question}`}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ lineHeight: 1.6, color: theme.palette.text.secondary }}
+            >
+              {faq.answer}
+            </Typography>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Box>
   );
 }
 
-export default SupportPage;
+export default QuestionPage;

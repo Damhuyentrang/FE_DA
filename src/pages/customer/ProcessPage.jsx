@@ -1,7 +1,46 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import { Box, Typography, useTheme } from "@mui/material";
 
 function ProcessPage() {
+  const theme = useTheme();
+
+  const introText = `Để đảm bảo quá trình khám chữa bệnh diễn ra nhanh chóng và hiệu quả, 
+  Bệnh Viện Mắt Hồng Sơn áp dụng quy trình khám bệnh chuyên nghiệp, rõ ràng, 
+  giúp bệnh nhân thuận tiện trong mọi bước.`;
+
+  const steps = [
+    {
+      title: "Tiếp đón & Đăng ký thông tin",
+      description:
+        "Bệnh nhân đến quầy lễ tân, cung cấp thông tin cá nhân, số điện thoại, và lý do khám. Nhân viên hướng dẫn lấy số thứ tự và hồ sơ khám bệnh.",
+    },
+    {
+      title: "Đo thị lực & kiểm tra ban đầu",
+      description:
+        "Nhân viên y tế sẽ tiến hành đo thị lực, soi đáy mắt, kiểm tra độ cận/viễn/loạn, đồng thời ghi nhận các triệu chứng ban đầu.",
+    },
+    {
+      title: "Khám với bác sĩ chuyên khoa",
+      description:
+        "Bác sĩ chuyên khoa mắt sẽ thăm khám chi tiết, đánh giá tình trạng bệnh lý, tư vấn nguyên nhân và hướng điều trị.",
+    },
+    {
+      title: "Thực hiện cận lâm sàng (nếu cần)",
+      description:
+        "Trong trường hợp cần thiết, bác sĩ sẽ chỉ định thêm các xét nghiệm như: chụp OCT, đo nhãn áp, siêu âm, hoặc xét nghiệm máu.",
+    },
+    {
+      title: "Nhận kết quả & tư vấn điều trị",
+      description:
+        "Sau khi có kết quả, bác sĩ giải thích chi tiết, tư vấn phương pháp điều trị hoặc phẫu thuật phù hợp nhất với tình trạng của bệnh nhân.",
+    },
+    {
+      title: "Thanh toán & nhận thuốc",
+      description:
+        "Bệnh nhân thanh toán chi phí tại quầy thu ngân, nhận thuốc và hướng dẫn sử dụng. Với bệnh nhân phẫu thuật, nhân viên sẽ hẹn lịch mổ và chăm sóc sau phẫu thuật.",
+    },
+  ];
+
   return (
     <Box>
       {/* Banner trên cùng */}
@@ -14,7 +53,7 @@ function ProcessPage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
-          paddingY: "80px",
+          paddingY: { xs: "60px", md: "80px" },
           alignItems: "center",
         }}
       >
@@ -25,7 +64,7 @@ function ProcessPage() {
               textAlign: "center",
               color: "#fff",
               fontWeight: 600,
-              fontSize: "2.5rem",
+              fontSize: { xs: "2rem", md: "2.5rem" },
             }}
           >
             QUY TRÌNH KHÁM BỆNH
@@ -33,113 +72,122 @@ function ProcessPage() {
         </Box>
       </Box>
 
-      {/* Nội dung chính */}
-      <Box
-        sx={{
-          position: "relative",
-          backgroundColor: "#fff",
-          margin: "-50px auto 120px",
-          borderRadius: "5px",
-          minHeight: "300px",
-          maxWidth: "1140px",
-          border: "1px solid #ebebeb",
-          padding: "30px",
-        }}
-      >
+      {/* Nội dung dưới banner */}
+      <Box sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
+        {/* Mô tả giữ nguyên */}
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: "1.1rem",
+            mb: 6,
+            textAlign: "center",
+            fontWeight: 400,
+            lineHeight: 1.6,
+          }}
+        >
+          {introText}
+        </Typography>
+
+        {/* Zig-zag steps */}
+        <Box
+          sx={{
+            position: "relative",
+            maxWidth: 900,
+            mx: "auto",
+            "&::before": {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              left: "50%",
+              width: "4px",
+              bgcolor: theme.palette.primary.main,
+              transform: "translateX(-50%)",
+              borderRadius: 2,
+            },
+          }}
+        >
+          {steps.map((step, idx) => {
+            const isLeft = idx % 2 === 0;
+
+            return (
+              <Box
+                key={idx}
+                sx={{
+                  display: "flex",
+                  justifyContent: {
+                    xs: "center",
+                    md: isLeft ? "flex-end" : "flex-start",
+                  },
+                  position: "relative",
+                  mb: 3,
+                }}
+              >
+                <Box
+                  sx={{
+                    width: { xs: "90%", md: "45%" },
+                    p: 3,
+                    bgcolor: "#f0f2f5",
+                    borderRadius: 2,
+                    boxShadow: "0px 4px 12px rgba(0,0,0,0.05)",
+                    textAlign: "left",
+                    position: "relative",
+                    ":hover": {
+                      transform: "translateY(-2px)",
+                      boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    sx={{
+                      fontWeight: 600,
+                      color: theme.palette.primary.main,
+                      mb: 1,
+                    }}
+                  >
+                    Bước {idx + 1}
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                    {step.title}
+                  </Typography>
+                  <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
+                    {step.description}
+                  </Typography>
+
+                  {/* Circle connector */}
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: isLeft ? "100%" : "-16px",
+                      width: "16px",
+                      height: "16px",
+                      bgcolor: theme.palette.primary.main,
+                      borderRadius: "50%",
+                      transform: "translateY(-50%)",
+                      display: { xs: "none", md: "block" },
+                    }}
+                  />
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
+
         <Typography
           variant="body1"
           sx={{
             fontSize: "1rem",
-            marginBottom: "1rem",
+            mt: 6,
             fontWeight: 400,
             lineHeight: 1.6,
             textAlign: "justify",
           }}
         >
-          Để đảm bảo quá trình khám chữa bệnh diễn ra nhanh chóng và hiệu quả,
-          Bệnh Viện Mắt Hồng Sơn áp dụng quy trình khám bệnh chuyên nghiệp, rõ ràng,
-          giúp bệnh nhân thuận tiện trong mọi bước.
-        </Typography>
-
-        <Typography
-          variant="h5"
-          sx={{
-            fontWeight: 600,
-            color: "#1976d2",
-            marginBottom: "1rem",
-          }}
-        >
-          🩺 Quy trình khám bệnh gồm 6 bước:
-        </Typography>
-
-        <ul
-          style={{
-            listStyle: "decimal",
-            paddingLeft: "25px",
-            marginBottom: "1rem",
-          }}
-        >
-          <li>
-            <Typography sx={{ marginBottom: "8px", textAlign: "justify" }}>
-              <strong>Bước 1: Tiếp đón và đăng ký thông tin</strong>  
-              <br />Bệnh nhân đến quầy lễ tân, cung cấp thông tin cá nhân, số điện thoại,
-              và lý do khám. Nhân viên hướng dẫn lấy số thứ tự và hồ sơ khám bệnh.
-            </Typography>
-          </li>
-
-          <li>
-            <Typography sx={{ marginBottom: "8px", textAlign: "justify" }}>
-              <strong>Bước 2: Đo thị lực và kiểm tra ban đầu</strong>  
-              <br />Nhân viên y tế sẽ tiến hành đo thị lực, soi đáy mắt, kiểm tra độ cận/viễn/loạn,
-              đồng thời ghi nhận các triệu chứng ban đầu.
-            </Typography>
-          </li>
-
-          <li>
-            <Typography sx={{ marginBottom: "8px", textAlign: "justify" }}>
-              <strong>Bước 3: Khám với bác sĩ chuyên khoa</strong>  
-              <br />Bác sĩ chuyên khoa mắt sẽ thăm khám chi tiết, đánh giá tình trạng
-              bệnh lý, tư vấn nguyên nhân và hướng điều trị.
-            </Typography>
-          </li>
-
-          <li>
-            <Typography sx={{ marginBottom: "8px", textAlign: "justify" }}>
-              <strong>Bước 4: Thực hiện cận lâm sàng (nếu cần)</strong>  
-              <br />Trong trường hợp cần thiết, bác sĩ sẽ chỉ định thêm các xét nghiệm như:
-              chụp OCT, đo nhãn áp, siêu âm, hoặc xét nghiệm máu.
-            </Typography>
-          </li>
-
-          <li>
-            <Typography sx={{ marginBottom: "8px", textAlign: "justify" }}>
-              <strong>Bước 5: Nhận kết quả và tư vấn điều trị</strong>  
-              <br />Sau khi có kết quả, bác sĩ giải thích chi tiết, tư vấn phương pháp điều trị
-              hoặc phẫu thuật phù hợp nhất với tình trạng của bệnh nhân.
-            </Typography>
-          </li>
-
-          <li>
-            <Typography sx={{ marginBottom: "8px", textAlign: "justify" }}>
-              <strong>Bước 6: Thanh toán và nhận thuốc</strong>  
-              <br />Bệnh nhân thanh toán chi phí tại quầy thu ngân, nhận thuốc và hướng dẫn
-              sử dụng. Với bệnh nhân phẫu thuật, nhân viên sẽ hẹn lịch mổ và chăm sóc sau phẫu thuật.
-            </Typography>
-          </li>
-        </ul>
-
-        <Typography
-          variant="body1"
-          sx={{
-            fontSize: "1rem",
-            marginTop: "2rem",
-            fontWeight: 400,
-            lineHeight: 1.6,
-            textAlign: "justify",
-          }}
-        >
-          🌟 <strong>Lưu ý:</strong> Bệnh viện luôn khuyến khích bệnh nhân đặt lịch hẹn trước
-          để giảm thời gian chờ đợi. Mọi quy trình đều được hướng dẫn tận tình bởi đội ngũ nhân viên.
+          🌟 <strong>Lưu ý:</strong> Bệnh viện luôn khuyến khích bệnh nhân đặt
+          lịch hẹn trước để giảm thời gian chờ đợi. Mọi quy trình đều được hướng
+          dẫn tận tình bởi đội ngũ nhân viên.
         </Typography>
       </Box>
     </Box>
