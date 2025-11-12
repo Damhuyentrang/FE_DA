@@ -6,7 +6,7 @@ function CustomThemeProvider(props) {
   const themeOptions = {
     palette: {
       primary: {
-        main: "#003a91",
+        main: "#e63946",
       },
       newPrimary: {
         main: "rgb(11,83,148)",
@@ -34,7 +34,7 @@ function CustomThemeProvider(props) {
       },
       template: {
         darker: "#17496c",
-        main: "#0b5394",
+        main: "#e63946",
         normal1: "	rgb(0, 148, 212)",
         normal2: "#00a9dd",
         normal3: "#6fccea",

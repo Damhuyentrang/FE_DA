@@ -39,7 +39,7 @@ const StyledLogo = styled(CardMedia)(({ theme }) => ({
   width: "190px",
   cover: "no-repeat",
   backgroundSize: "contain",
-  height: theme.spacing(8),
+  height: theme.spacing(14),
   marginRight: "10px",
   cursor: "pointer",
 }));
@@ -53,8 +53,8 @@ const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
   transition: "all 0.2s ease",
   "&:hover": {
     color: theme.palette.primary.main,
-    backgroundColor: "rgba(11, 83, 148, 0.08)", // hover nền nhẹ, tinh tế
-    boxShadow: "0 4px 12px rgba(0,0,0,0.08)", // shadow mảnh
+    backgroundColor: "#0b539414",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
   },
 }));
 
@@ -64,12 +64,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
   fontWeight: "bold",
   fontSize: "14px",
   boxShadow: "none",
-  color: theme.palette.white.main,
-  "&:hover": {
-    background: "linear-gradient(45deg, #4dc9e6 30%, #0974f1 90%)", // giữ màu cũ
-    color: theme.palette.white.main,
-    boxShadow: "0 4px 12px rgba(0,0,0,0.15)", // hover nổi nhẹ
-  },
+  textTransform: "none",
 }));
 
 function NavBar({ onDrawerClick }) {
@@ -132,53 +127,75 @@ function NavBar({ onDrawerClick }) {
         {lgUp && (
           <Stack
             direction={"row"}
-            spacing={2}
             alignItems="center"
             justifyContent="space-between"
-            sx={{ px: 5, py: 1.5, maxWidth: "1240px", width: "100%" }}
+            sx={{ px: 0, py: 1.5, maxWidth: "1540px", width: "100%" }}
           >
             <StyledLogo
               onClick={() => navigate("/")}
               image="https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762684631/images_vvrjpb.jpg"
             />
 
-            <Toolbar component={Stack} direction={"row"} sx={{ height: 40 }}>
-              {menuItems.map((item, index) => (
-                <CustomMenuItem key={index} onClick={() => navigate(item.path)}>
-                  {item.label}
-                </CustomMenuItem>
-              ))}
-            </Toolbar>
+            <Stack direction="row" alignItems="center" spacing={3}>
+              <Toolbar component={Stack} direction="row" sx={{ height: 40 }}>
+                {menuItems.map((item, index) => (
+                  <CustomMenuItem
+                    key={index}
+                    onClick={() => navigate(item.path)}
+                  >
+                    {item.label}
+                  </CustomMenuItem>
+                ))}
+              </Toolbar>
 
-            <Box>
-              {!token || !fullName ? (
-                <CustomButton
-                  variant="contained"
-                  onClick={() => navigate("/auth/login")}
-                  sx={{
-                    background:
-                      "linear-gradient(45deg, #4dc9e6 30%, #0974f1 90%)",
-                  }}
-                >
-                  <LoginIcon sx={{ mr: 0.5 }} />
-                  Đăng nhập
-                </CustomButton>
-              ) : (
-                <CustomButton
-                  variant="outlined"
-                  onClick={accountPopover.handleOpen}
-                  ref={accountPopover.anchorRef}
-                >
-                  <PersonIcon sx={{ mr: 0.5 }} />
-                  {fullName}
-                </CustomButton>
-              )}
-            </Box>
-            <AccountPopover
-              anchorEl={accountPopover.anchorRef.current}
-              open={accountPopover.open}
-              onClose={accountPopover.handleClose}
-            />
+              <Box>
+                {!token || !fullName ? (
+                  <CustomButton
+                    variant="contained"
+                    onClick={() => navigate("/auth/login")}
+                    sx={{
+                      background:
+                        "linear-gradient(45deg, #ff7b7b 30%, #e63946 90%)",
+                      color: "white",
+                      "&:hover": {
+                        background:
+                          "linear-gradient(45deg, #ff7b7b 20%, #e63946 100%)",
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                      },
+                    }}
+                  >
+                    <LoginIcon sx={{ mr: 0.5 }} />
+                    Đăng nhập
+                  </CustomButton>
+                ) : (
+                  <CustomButton
+                    variant="outlined"
+                    onClick={accountPopover.handleOpen}
+                    ref={accountPopover.anchorRef}
+                    sx={{
+                      color: theme.palette.primary.main,
+                      borderColor: theme.palette.primary.main,
+                      backgroundColor: "white",
+                      "&:hover": {
+                        backgroundColor: "rgba(9,116,241,0.08)",
+                        borderColor: theme.palette.primary.main,
+                        color: theme.palette.primary.main,
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                      },
+                    }}
+                  >
+                    <PersonIcon sx={{ mr: 0.5 }} />
+                    {fullName}
+                  </CustomButton>
+                )}
+              </Box>
+
+              <AccountPopover
+                anchorEl={accountPopover.anchorRef.current}
+                open={accountPopover.open}
+                onClose={accountPopover.handleClose}
+              />
+            </Stack>
           </Stack>
         )}
       </Stack>
