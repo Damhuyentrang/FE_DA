@@ -4,8 +4,9 @@ import React from "react";
 
 const StyledFooter = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.main,
-  paddingTop: theme.spacing(6),
-  paddingBottom: theme.spacing(0),
+  paddingTop: theme.spacing(8), // tăng từ 6 lên 8 để cao hơn
+  borderTop: "6px solid",
+  borderImage: "linear-gradient(45deg, #ff7b7b 30%, #e63946 90%) 1", // border gradient
 }));
 
 function Footer(props) {
@@ -101,7 +102,7 @@ function Footer(props) {
 
       {/* Map */}
       <Grid item xs={12} md={4} marginTop={{ xs: "1rem", md: 0 }}>
-        <Stack width="100%" height={{ xs: 200, md: 250 }}>
+        <Stack width="100%" height={{ xs: 200, md: 350 }}>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.598058669818!2d105.82612117539709!3d21.00874318063563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac800f450807%3A0x419a49bcd94b693a!2zSOG7jWMgVmnhu4duIE5nw6JuIEjDoG5n!5e0!3m2!1svi!2s!4v1758354882071!5m2!1svi!2s"
             width="100%"
@@ -124,7 +125,7 @@ function Footer(props) {
             fontWeight: "bold",
             width: "100%",
             padding: "1rem 0",
-            margin: 0, // reset margin
+            margin: 0,
             color: "#fff",
           }}
         >

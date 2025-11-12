@@ -39,7 +39,7 @@ function TimeWorking(props) {
           content: "''",
           position: "absolute",
           inset: 0,
-          bgcolor: "rgba(0,0,0,0.3)", // overlay
+          bgcolor: "rgba(0,0,0,0.6)", // overlay
           zIndex: 0,
         },
       }}
