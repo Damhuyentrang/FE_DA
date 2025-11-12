@@ -13,34 +13,29 @@ import { useSnackbar } from "notistack";
 import { checkPhoneOrEmail } from "../../services/customer/AuthServices";
 
 const CustomTextField = styled(TextField)(({ theme }) => ({
-  width: "390px", // Default width for larger screens
-
-  [theme.breakpoints.down("sm")]: {
-    width: "350px", // Adjusted width for smaller screens (e.g., width < 600px)
-  },
+  width: "390px",
+  [theme.breakpoints.down("sm")]: { width: "350px" },
   height: "50px",
-
   "& .MuiOutlinedInput-root": {
     "&.Mui-focused fieldset": {
-      borderColor: theme.palette.template.normal1,
-      boxShadow: "0px 0px 5px 0px rgba(0, 148, 212, 0.488)",
+      borderColor: theme.palette.primary.main,
+      boxShadow: "0px 0px 5px 0px rgba(0, 148, 212, 0.4)",
     },
   },
 }));
 
 const CustomButton = styled(Button)(({ theme }) => ({
-  background: theme.palette.oldPrimary.main,
-  color: "white",
-  width: "390px", // Default width for larger screens
-
-  [theme.breakpoints.down("sm")]: {
-    width: "350px", // Adjusted width for smaller screens (e.g., width < 600px)
-  },
+  background: theme.palette.primary.main,
+  color: "#fff",
+  width: "390px",
+  [theme.breakpoints.down("sm")]: { width: "350px" },
   height: "45px",
+  fontWeight: 600,
+  transition: "all 0.3s ease",
   "&:hover": {
-    background: theme.palette.oldPrimary.main, // Đổi màu nền khi hover
-    boxShadow: "0px 0px 5px 0px rgba(171, 169, 169, 0.75)", // Đổ bóng
-    transform: "scale(1.01)", // Scale lên 110%
+    background: theme.palette.primary.dark,
+    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.25)",
+    transform: "scale(1.02)",
   },
 }));
 
@@ -51,38 +46,28 @@ InputPhoneNumber.propTypes = {
   setLoginType: PropTypes.func,
 };
 
-function InputPhoneNumber(props) {
-  const { phone, setPhone, setStep, setLoginType } = props;
+function InputPhoneNumber({ phone, setPhone, setStep, setLoginType }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
   const handleCheckPhone = async () => {
     setIsLoading(true);
     const phoneTrim = phone.trim();
-    if (!phoneTrim.includes("@")) {
-      if (phoneTrim === "") {
-        enqueueSnackbar("Vui lòng nhập số điện thoại!", { variant: "error" });
-        setIsLoading(false);
-        return false;
-      }
 
-      // const regex = new RegExp("^0\\d{9}$");
-      // if (regex.test(phoneTrim) === false) {
-      //   enqueueSnackbar("Số điện thoại không hợp lệ!", { variant: "error" });
-      //   setIsLoading(false);
-      //   return false;
-      // }
+    if (phoneTrim === "") {
+      enqueueSnackbar("Vui lòng nhập số điện thoại!", { variant: "error" });
+      setIsLoading(false);
+      return;
     }
 
-    const response = await checkPhoneOrEmail({
-      emailOrPhoneNumber: phoneTrim,
-    });
+    const response = await checkPhoneOrEmail({ emailOrPhoneNumber: phoneTrim });
     setIsLoading(false);
 
     if (!response.success) {
       enqueueSnackbar(
         response.statusCode === 400
-          ? "Email đăng nhập không tồn tại"
-          : "Đã có lỗi xảy ra vui lòng thử lại sau",
+          ? "Email/Số điện thoại không tồn tại"
+          : "Đã có lỗi xảy ra, vui lòng thử lại sau",
         { variant: "error" }
       );
       return;
@@ -93,67 +78,42 @@ function InputPhoneNumber(props) {
 
     setStep();
   };
+
   return (
-    <Stack
-      direction={"column"}
-      spacing={2.25}
-      sx={{
-        width: "100%",
-        height: "100%",
-        alignItems: "center",
-      }}
-    >
-      <Typography
-        variant={"body1"}
-        style={{ fontWeight: "600", fontSize: "14px" }}
-      >
+    <Stack spacing={2} alignItems="center" sx={{ width: "100%" }}>
+      <Typography variant="body1" sx={{ fontWeight: 600, fontSize: "14px" }}>
         Vui lòng nhập số điện thoại để đăng nhập
       </Typography>
-      <Box
-        sx={{
-          padding: "0",
-        }}
-      >
+
+      <Box sx={{ width: { xs: 350, sm: 390 } }}>
         <CustomTextField
-          id="input-phone-number"
           autoFocus
           variant="outlined"
           placeholder="Số điện thoại"
           size="large"
+          value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleCheckPhone();
-          }}
+          onKeyDown={(e) => e.key === "Enter" && handleCheckPhone()}
           autoComplete="off"
           InputProps={{
             startAdornment: (
               <img
                 src="https://flagcdn.com/w20/vn.png"
                 alt="Vietnam Flag"
-                style={{
-                  width: "30px",
-                  height: "20px",
-                  margin: "0px 8px",
-                }}
+                style={{ width: "30px", height: "20px", marginRight: 8 }}
               />
             ),
-            style: {
-              padding: ".5rem .7rem",
-            },
+            style: { padding: "0.5rem 0.7rem" },
           }}
         />
-        {phone === "" ? (
-          <FormHelperText error style={{ textAlign: "left", width: "100%" }}>
+        {phone.trim() === "" && (
+          <FormHelperText error sx={{ width: "100%", textAlign: "left" }}>
             Vui lòng nhập số điện thoại!
           </FormHelperText>
-        ) : null}
+        )}
       </Box>
-      <CustomButton
-        id="btn-continue"
-        variant="contained"
-        onClick={handleCheckPhone}
-        disabled={isLoading}
-      >
+
+      <CustomButton onClick={handleCheckPhone} disabled={isLoading}>
         Tiếp tục
       </CustomButton>
     </Stack>
