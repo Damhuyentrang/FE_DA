@@ -23,7 +23,7 @@ function MainComponent(props) {
         justifyContent: "center",
         textAlign: "center",
         minHeight: "100vh",
-        px: 2, // padding responsive
+        px: 2,
       }}
     >
       {/* Overlay */}
@@ -54,7 +54,7 @@ function MainComponent(props) {
               fontWeight: 400,
               lineHeight: 1.2,
               mb: 3,
-              color: "#fff",
+              color: theme.palette.white.main, // dùng màu từ theme
             }}
           >
             Chúng tôi ở đây <br />
@@ -65,7 +65,7 @@ function MainComponent(props) {
             variant="body1"
             sx={{
               mb: 4,
-              color: "#fff",
+              color: theme.palette.white.main,
               whiteSpace: "pre-line",
             }}
           >
@@ -81,12 +81,12 @@ Hãy trao cho chúng tôi niềm tin - Chúng tôi sẽ trao lại cho bạn hy 
           <Button
             size="large"
             sx={{
-              bgcolor: "#c01e1eff",
-              color: "#fff",
+              bgcolor: theme.palette.red.main, // dùng màu đỏ từ theme
+              color: theme.palette.white.main,
               px: 5,
               py: 2,
               boxShadow: "0px 4px 4px rgba(0,0,0,0.25)",
-              "&:hover": { bgcolor: "#a01b1b" },
+              "&:hover": { bgcolor: theme.palette.red.main + "CC" }, // hover màu đỏ nhạt
             }}
           >
             Tìm hiểu về chúng tôi

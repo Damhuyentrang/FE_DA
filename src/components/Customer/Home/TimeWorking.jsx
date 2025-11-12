@@ -1,12 +1,12 @@
 import { Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CountUpAnimation from "./CountUpAnimation";
 import { getAllHomeStatistics } from "../../../services/common/StatisticsServices";
 
 function TimeWorking(props) {
   const theme = useTheme();
   const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
-  const [statistics, setStatistics] = React.useState({});
+  const [statistics, setStatistics] = useState({});
 
   useEffect(() => {
     const getHomeStatistics = async () => {
@@ -39,7 +39,7 @@ function TimeWorking(props) {
           content: "''",
           position: "absolute",
           inset: 0,
-          bgcolor: "rgba(0,0,0,0.3)",
+          bgcolor: "rgba(0,0,0,0.3)", // overlay
           zIndex: 0,
         },
       }}
@@ -87,7 +87,7 @@ function TimeWorking(props) {
                 variant="body1"
                 sx={{
                   mt: 2,
-                  color: "#fff",
+                  color: theme.palette.white.main,
                   fontSize: { xs: 18, md: 20 },
                   fontWeight: 400,
                 }}
