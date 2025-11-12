@@ -1,0 +1,338 @@
+* {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+}
+
+.test-github {
+  background-color: rgb(176, 212, 176);
+}
+
+/* RowInfo.css */
+.name-text {
+  text-transform: uppercase;
+  color: #42a5f5;
+  text-align: left;
+  font-weight: bold;
+  flex-basis: 80%;
+}
+
+.default-text {
+  text-align: left;
+  color: #161414;
+  font-weight: 700;
+  flex: 2;
+}
+
+/* Scrollbar */
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: #79757a #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #79757a;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+/* End Scrollbar */
+
+.back-ground {
+  background-image: url("https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762685222/bia_ipszfz.png");
+  background-repeat: no-repeat;
+  background-size: 130%;
+  background-attachment: fixed;
+  background-position: center center;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90vh;
+  z-index: -2;
+}
+.back-ground .overlay {
+  background-image: linear-gradient(45deg, #9b2b35 10%, #ece6e6 100%);
+  position: absolute;
+  opacity: 0.7;
+  width: 100%;
+  height: 100vh;
+  z-index: -100; /* Gửi overlay xuống dưới */
+}
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  z-index: 1; /* Gửi container lên trên */
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.slider-text {
+  text-align: center;
+  color: #fff;
+  height: 650px;
+}
+
+.cover {
+  background-color: #000;
+  opacity: 0.5;
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .back-ground {
+    background-position: left center;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 24px 32px;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  color: #5e5e5e;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content .heading {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.content .para {
+  line-height: 1.5;
+}
+
+.content .btn {
+  color: #e8e8e8;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(-180deg, #2af598 0%, #009efd 100%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(-180deg, #2af598 0%, #009efd 100%);
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card:hover::before {
+  height: 100%;
+}
+
+.card:hover {
+  box-shadow: none;
+}
+
+.card:hover .btn {
+  color: #212121;
+  background: #fff;
+}
+
+.card:hover .content {
+  color: #ffffff !important;
+}
+
+.content .btn:hover {
+  outline: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+}
+
+.content .btn:active {
+  box-shadow: none;
+}
+
+.button {
+  position: relative;
+  width: 160px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #347997;
+  background-color: #3a6ca8;
+}
+
+.button,
+.button__icon,
+.button__text {
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(30px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(120px);
+  height: 100%;
+  width: 40px;
+  background-color: #345c97;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 30px;
+  stroke: #fff;
+}
+
+.button:hover {
+  background: #345c97;
+}
+
+.button:hover .button__text {
+  color: transparent;
+}
+
+.button:hover .button__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+
+.button:active .button__icon {
+  background-color: #345c97;
+}
+
+.button:active {
+  border: 1px solid #345c97;
+}
+
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+#outline-input fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: red !important;
+}
+
+.buttonDelete {
+  width: 120px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: red;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  background: #e62222;
+}
+
+.buttonDelete .text,
+.buttonDelete .icon {
+  transition: 200ms;
+}
+
+.buttonDelete .text {
+  transform: translateX(30px);
+  color: white;
+  font-weight: bold;
+}
+
+.buttonDelete .icon {
+  position: absolute;
+  border-left: 1px solid #c41b1b;
+  transform: translateX(85px);
+  height: 30px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonDelete svg {
+  width: 15px;
+  fill: #eee;
+}
+
+.buttonDelete:hover {
+  background: #ff3636;
+}
+
+.buttonDelete:hover .text {
+  color: transparent;
+}
+
+.buttonDelete:hover .icon {
+  width: 120px;
+  border-left: none;
+  transform: translateX(0);
+}
+
+.buttonDelete:focus {
+  outline: none;
+}
+
+.buttonDelete:active .icon svg {
+  transform: scale(0.8);
+}
