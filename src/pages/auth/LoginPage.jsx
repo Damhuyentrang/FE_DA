@@ -15,7 +15,6 @@ const urlImage =
 const urlBackground =
   "https://cdnphoto.dantri.com.vn/ShdbLNAsoDlEXw6jOPpOnarv0hc=/thumb_w/1020/2023/06/02/bv-hong-sondocx-1685694436755.png";
 
-
 const RootPageLogin = styled(Page)(({ theme }) => ({
   display: "flex",
   height: "100vh",
@@ -91,14 +90,15 @@ function LoginPage(props) {
       </Left>
       <Right>
         <Stack
-          direction={"column"}
+          direction="column"
           spacing={2}
           sx={{
-            paddingX: "auto",
             width: "100%",
-            height: "100%",
+            minHeight: "100%",
+            display: "flex",
+            justifyContent: "center",
             alignItems: "center",
-            paddingTop: "80px",
+            paddingTop: 0, // loại bỏ 80px dư thừa
           }}
         >
           <CardMedia
