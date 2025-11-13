@@ -1,6 +1,13 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { Box, CardMedia, Paper, Stack, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  CardMedia,
+  Paper,
+  Stack,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import InputPhoneNumber from "../../components/Auth/InputPhoneNumber";
 import Page from "../../components/General/Page";
@@ -14,7 +21,7 @@ const urlImage =
   "https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762684631/images_vvrjpb.jpg";
 
 const urlBackground =
-  "https://cdnphoto.dantri.com.vn/ShdbLNAsoDlEXw6jOPpOnarv0hc=/thumb_w/1020/2023/06/02/bv-hong-sondocx-1685694436755.png";
+  "https://static.royacdn.com/Site-f5437b08-ac5f-4e8d-ae22-82cae06b8d55/Background_images/textured_background.jpg";
 
 const RootPageLogin = styled(Page)(({ theme }) => ({
   display: "flex",
@@ -129,12 +136,19 @@ function LoginPage(props) {
             <CardMedia
               component={"img"}
               image={urlImage}
+              onClick={() => navigate("/")}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") navigate("/");
+              }}
               sx={{
                 width: "220px",
                 height: "220px",
                 objectFit: "cover",
                 objectPosition: "center",
                 marginTop: "20px",
+                cursor: "pointer",
                 [theme.breakpoints.down("sm")]: {
                   width: "150px",
                   height: "150px",
