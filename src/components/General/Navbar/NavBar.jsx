@@ -166,10 +166,11 @@ function NavBar({ onDrawerClick }) {
                       background:
                         "linear-gradient(45deg, #ff7b7b 30%, #e63946 90%)",
                       color: "white",
+                      boxShadow: "0 4px 12px rgba(230, 57, 70, 0.4)",
                       "&:hover": {
                         background:
                           "linear-gradient(45deg, #ff7b7b 20%, #e63946 100%)",
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                        boxShadow: "0 4px 12px rgba(230, 57, 70, 0.6)",
                       },
                     }}
                   >
@@ -185,11 +186,12 @@ function NavBar({ onDrawerClick }) {
                       color: theme.palette.primary.main,
                       borderColor: theme.palette.primary.main,
                       backgroundColor: "white",
+                      boxShadow: "0 4px 12px rgba(230, 57, 70, 0.3)",
                       "&:hover": {
                         backgroundColor: "rgba(9,116,241,0.08)",
                         borderColor: theme.palette.primary.main,
                         color: theme.palette.primary.main,
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                        boxShadow: "0 4px 12px rgba(230, 57, 70, 0.5)",
                       },
                     }}
                   >

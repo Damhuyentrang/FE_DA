@@ -352,10 +352,11 @@ function RightNavBar(props) {
               color: "white",
               background:
                 "linear-gradient(45deg, #ff7b7b 30%, #e63946 90%)",
+              boxShadow: "0 4px 12px rgba(230, 57, 70, 0.4)",
               "&:hover": {
                 background:
                   "linear-gradient(45deg, #ff7b7b 20%, #e63946 100%)",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                boxShadow: "0 4px 12px rgba(230, 57, 70, 0.6)",
               },
             }}
             onClick={() => navigate("/auth/login")}

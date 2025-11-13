@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   Box,
+  Button,
   CardMedia,
   Paper,
   Stack,
+  Typography,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -87,6 +90,7 @@ const Right = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fbfafc",
   overflow: "auto",
   borderRadius: "8px",
+  position: "relative",
   [theme.breakpoints.down("sm")]: {
     borderRadius: 0,
     paddingLeft: theme.spacing(1.5),
@@ -117,6 +121,33 @@ function LoginPage(props) {
     <RootPageLogin title="Đăng nhập">
       <LoginContainer>
         <Right>
+          <Button
+            onClick={() => navigate("/")}
+            sx={{
+              position: "absolute",
+              top: theme.spacing(2),
+              right: theme.spacing(2),
+              color: theme.palette.template.main,
+              textTransform: "none",
+              fontWeight: "500",
+              fontSize: "14px",
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              "&:hover": {
+                backgroundColor: theme.palette.template.lightest,
+                color: theme.palette.template.darker,
+              },
+              [theme.breakpoints.down("sm")]: {
+                top: theme.spacing(1),
+                right: theme.spacing(1),
+                fontSize: "12px",
+              },
+            }}
+          >
+            <ArrowBackIcon fontSize="small" />
+            <Typography variant="body2">Quay lại trang chủ</Typography>
+          </Button>
           <Stack
             direction="column"
             spacing={isMobile ? 1.5 : 2}
