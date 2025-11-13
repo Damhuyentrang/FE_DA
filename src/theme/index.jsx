@@ -43,7 +43,7 @@ function CustomThemeProvider(props) {
         lightest: "#ffe5e6",
       },
       normal1: {
-        main: "	rgb(0, 148, 212)",
+        main: "	#0094d4",
       },
       normal2: {
         main: "#00a9dd",

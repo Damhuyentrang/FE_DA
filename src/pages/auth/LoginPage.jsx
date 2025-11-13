@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Box, CardMedia, Paper, Stack } from "@mui/material";
+import { keyframes } from "@emotion/react";
+import { Box, CardMedia, Paper, Stack, useTheme, useMediaQuery } from "@mui/material";
 import React, { useEffect } from "react";
 import InputPhoneNumber from "../../components/Auth/InputPhoneNumber";
 import Page from "../../components/General/Page";
@@ -21,43 +22,77 @@ const RootPageLogin = styled(Page)(({ theme }) => ({
   width: "100%",
   alignItems: "center",
   justifyContent: "center",
-}));
-
-const Left = styled(Box)(({ theme }) => ({
-  flex: 6,
-  height: "90%",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  alignItems: "center",
   backgroundImage: `url(${urlBackground})`,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-  zIndex: 1,
   backgroundPosition: "center",
+  backgroundAttachment: "fixed",
   [theme.breakpoints.down("sm")]: {
-    display: "none",
+    backgroundImage: "none",
+    backgroundColor: "#fbfafc",
   },
+}));
 
-  [theme.breakpoints.down("md")]: {
-    display: "none",
+const borderAnimation = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const LoginContainer = styled(Box)(({ theme }) => ({
+  position: "relative",
+  padding: "2px",
+  borderRadius: "12px",
+  background: `linear-gradient(90deg, ${theme.palette.template.main}, ${theme.palette.template.lightest}, ${theme.palette.template.main})`,
+  backgroundSize: "200% 200%",
+  animation: `${borderAnimation} 3s ease infinite`,
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    height: "100vh",
+    borderRadius: 0,
+    padding: 0,
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "450px",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "500px",
   },
 }));
 
 const Right = styled(Paper)(({ theme }) => ({
-  flex: 4,
-  height: "100%",
   width: "100%",
+  height: "100%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
   backgroundColor: "#fbfafc",
   overflow: "auto",
+  borderRadius: "8px",
+  [theme.breakpoints.down("sm")]: {
+    borderRadius: 0,
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(1.5),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    minHeight: "100vh",
+  },
 }));
 
 function LoginPage(props) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [emailOrPhoneNumber, setEmailOrPhoneNumber] = React.useState("");
   const [loginType, setLoginType] = React.useState("password");
   const [step, setStep] = React.useState(1);
@@ -73,70 +108,66 @@ function LoginPage(props) {
   }, [token, navigate, fullName]);
   return (
     <RootPageLogin title="Đăng nhập">
-      <Left>
-        <Box
-          sx={{
-            bgcolor: "white",
-            width: "50px",
-            height: "0%",
-            display: "flex",
-            justifyContent: "flex-start",
-            marginLeft: "auto",
-            clipPath: "polygon(100% 0, 100% 0%, 100% 100%, 0% 100%)",
-            border: "none",
-            backgroundColor: "#941616ff",
-          }}
-        />
-      </Left>
-      <Right>
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{
-            width: "100%",
-            minHeight: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingTop: 0, // loại bỏ 80px dư thừa
-          }}
-        >
-          <CardMedia
-            component={"img"}
-            image={urlImage}
+      <LoginContainer>
+        <Right>
+          <Stack
+            direction="column"
+            spacing={isMobile ? 1.5 : 2}
             sx={{
-              width: "220px",
-              height: "220px",
-              objectFit: "cover",
-              objectPosition: "center",
-              marginTop: "20px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              [theme.breakpoints.down("sm")]: {
+                "& > *": {
+                  transform: "scale(0.9)",
+                  transformOrigin: "center",
+                },
+              },
             }}
-          />
-          {step === 1 && (
-            <InputPhoneNumber
-              phone={emailOrPhoneNumber}
-              setPhone={setEmailOrPhoneNumber}
-              setStep={() => setStep(2)}
-              setLoginType={setLoginType}
+          >
+            <CardMedia
+              component={"img"}
+              image={urlImage}
+              sx={{
+                width: "220px",
+                height: "220px",
+                objectFit: "cover",
+                objectPosition: "center",
+                marginTop: "20px",
+                [theme.breakpoints.down("sm")]: {
+                  width: "150px",
+                  height: "150px",
+                  marginTop: "10px",
+                },
+              }}
             />
-          )}
+            {step === 1 && (
+              <InputPhoneNumber
+                phone={emailOrPhoneNumber}
+                setPhone={setEmailOrPhoneNumber}
+                setStep={() => setStep(2)}
+                setLoginType={setLoginType}
+              />
+            )}
 
-          {step === 2 && loginType === "password" && (
-            <InputPassword
-              phone={emailOrPhoneNumber}
-              setLoginType={() => setLoginType("otp")}
-            />
-          )}
+            {step === 2 && loginType === "password" && (
+              <InputPassword
+                phone={emailOrPhoneNumber}
+                setLoginType={() => setLoginType("otp")}
+              />
+            )}
 
-          {step === 2 && loginType === "otp" && (
-            <InputOTP phone={emailOrPhoneNumber} />
-          )}
+            {step === 2 && loginType === "otp" && (
+              <InputOTP phone={emailOrPhoneNumber} />
+            )}
 
-          {step === 2 && loginType === "register" && (
-            <Register phone={emailOrPhoneNumber} />
-          )}
-        </Stack>
-      </Right>
+            {step === 2 && loginType === "register" && (
+              <Register phone={emailOrPhoneNumber} />
+            )}
+          </Stack>
+        </Right>
+      </LoginContainer>
     </RootPageLogin>
   );
 }
