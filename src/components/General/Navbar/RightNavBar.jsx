@@ -32,6 +32,7 @@ import {
   SvgIcon,
   SwipeableDrawer,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -210,6 +211,7 @@ const StyledLogo = styled(CardMedia)(({ theme }) => ({
 
 function RightNavBar(props) {
   const { open, onOpenClose } = props;
+  const theme = useTheme();
   const { token, setToken, fullName, role, nurseType } = useAuth();
   const navigate = useNavigate();
 
@@ -288,12 +290,17 @@ function RightNavBar(props) {
         >
           <StyledLogo image="https://res.cloudinary.com/dgxmy3xwq/image/upload/v1762684631/images_vvrjpb.jpg" />
           <IconButton
+            onClick={() => onOpenClose(false)}
             sx={{
               border: "1px solid #484040",
-              borderRadius: "50%", // để tạo góc bo tròn
+              borderRadius: "50%",
               padding: "4px",
+              color: theme.palette.template.main,
+              "&:hover": {
+                backgroundColor: theme.palette.template.lightest,
+                color: theme.palette.template.darker,
+              },
             }}
-            onClick={() => onOpenClose(false)}
           >
             <SvgIcon fontSize="medium">
               <Close />
@@ -343,7 +350,13 @@ function RightNavBar(props) {
               width: "100%",
               height: "50px",
               color: "white",
-              background: "#00a0ff",
+              background:
+                "linear-gradient(45deg, #ff7b7b 30%, #e63946 90%)",
+              "&:hover": {
+                background:
+                  "linear-gradient(45deg, #ff7b7b 20%, #e63946 100%)",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+              },
             }}
             onClick={() => navigate("/auth/login")}
           >

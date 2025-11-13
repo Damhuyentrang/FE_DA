@@ -17,7 +17,7 @@ import {
 import React, { useEffect } from "react";
 import { usePopover } from "../../../hooks/use-popover";
 import AccountPopover from "./AccountPopover";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { checkInfo } from "../../../services/customer/AuthServices";
 import { useAuth } from "../../../auth/AuthProvider";
 
@@ -44,13 +44,17 @@ const StyledLogo = styled(CardMedia)(({ theme }) => ({
   cursor: "pointer",
 }));
 
-const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
+const CustomMenuItem = styled(MenuItem)(({ theme, isactive }) => ({
   color: theme.palette.template.main,
   padding: "12px 20px !important",
   borderRadius: 0,
   fontWeight: "bold",
   fontSize: "18px",
   transition: "all 0.2s ease",
+  position: "relative",
+  borderBottom: isactive === "true" 
+    ? `3px solid ${theme.palette.template.main}` 
+    : "3px solid transparent",
   "&:hover": {
     color: theme.palette.primary.main,
     backgroundColor: "#0b539414",
@@ -73,6 +77,7 @@ function NavBar({ onDrawerClick }) {
   const accountPopover = usePopover();
   const { token, setFullName, fullName, setRole, setNurseType } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleGetFullName = async () => {
@@ -138,14 +143,18 @@ function NavBar({ onDrawerClick }) {
 
             <Stack direction="row" alignItems="center" spacing={3}>
               <Toolbar component={Stack} direction="row" sx={{ height: 40 }}>
-                {menuItems.map((item, index) => (
-                  <CustomMenuItem
-                    key={index}
-                    onClick={() => navigate(item.path)}
-                  >
-                    {item.label}
-                  </CustomMenuItem>
-                ))}
+                {menuItems.map((item, index) => {
+                  const isActive = location.pathname === item.path;
+                  return (
+                    <CustomMenuItem
+                      key={index}
+                      onClick={() => navigate(item.path)}
+                      isactive={isActive ? "true" : "false"}
+                    >
+                      {item.label}
+                    </CustomMenuItem>
+                  );
+                })}
               </Toolbar>
 
               <Box>
